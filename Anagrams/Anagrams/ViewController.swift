@@ -87,11 +87,7 @@ class ViewController: UIViewController {
                 if usedLetters[key] != nil {
                     usedLetters[key]!+=1 //looked up how to access values in key-value pairs
                     print("Used - \(key): \(String(describing: usedLetters[key]))")
-                } else {
-                    return
                 }
-            } else {
-                return
             }
         }
     }
