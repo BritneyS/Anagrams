@@ -27,6 +27,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var guessTextField: UITextField!
     @IBOutlet weak var checkAnagramButton: UIButton!
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var isAnagramDisplayLabel: UILabel!
     
     var word = "cider" // cried, ride, dice
     var isAnagram = false
@@ -123,11 +124,21 @@ class ViewController: UIViewController {
         print("New guess:\(usedLetters)")
     }
     
+    func isAnagramDisplay(anagramCheck:Bool) {
+        if anagramCheck {
+            isAnagramDisplayLabel.text = "Is an Anagram!😃"
+        } else {
+            isAnagramDisplayLabel.text = "NOT an Anagram!😢"
+        }
+    }
+    
     func updateScore(anagramCheck:Bool) {
-        if isAnagram {
+        if anagramCheck {
+            isAnagramDisplay(anagramCheck: anagramCheck)
             score+=1
             scoreLabel.text = "Score: \(score)"
         } else {
+            isAnagramDisplay(anagramCheck: anagramCheck)
             score-=1
             scoreLabel.text = "Score: \(score)"
         }
