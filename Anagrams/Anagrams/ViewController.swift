@@ -62,6 +62,7 @@ class ViewController: UIViewController {
             if wordArr.contains(String(char)) {
                 //charMatch+=1
                 updateUsedLetters(letter: String(char))
+                checkUsedLetters(letter: String(char))
                 print("Character: \(String(char)), matchCount: \(charMatch)")
             } else {
                 //charMatch-=1
@@ -69,7 +70,7 @@ class ViewController: UIViewController {
                 print("Character: \(String(char)), matchCount: \(charMatch)")
             }
         }
-        checkUsedLetters() // check for duplicates
+        //checkUsedLetters() // check for duplicates
         print("Total charMatch: \(charMatch)")
         
         updateScore(anagramCheck: checkMatch(matchCount: charMatch, guess: guess))
@@ -79,11 +80,13 @@ class ViewController: UIViewController {
     
     //checks for duplicates, if match is found
     func updateUsedLetters(letter:String){
-        
+        print("updated usedLetters")
         for key in usedLetters.keys {
+            print("key:\(key), letter:\(letter)")
             if letter == key {
                 if usedLetters[key] != nil {
                     usedLetters[key]!+=1 //looked up how to access values in key-value pairs
+                    print("Used - \(key): \(String(describing: usedLetters[key]))")
                 } else {
                     return
                 }
@@ -93,12 +96,14 @@ class ViewController: UIViewController {
         }
     }
     
-    func checkUsedLetters(){
-        for value in usedLetters.values {
-            if value == 1 {
-                charMatch+=1
-            } else {
-                charMatch-=1
+    func checkUsedLetters(letter:String){
+        for (key, value) in usedLetters {
+            if letter == key {
+                if value == 1 {
+                    charMatch+=1
+                } else {
+                    charMatch-=1
+                }
             }
         }
     }
@@ -116,6 +121,10 @@ class ViewController: UIViewController {
     
     func newGuess(){
         charMatch = 0
+        for key in usedLetters.keys {
+            usedLetters[key] = 0
+        }
+        print("New guess:\(usedLetters)")
     }
     
     func updateScore(anagramCheck:Bool) {
