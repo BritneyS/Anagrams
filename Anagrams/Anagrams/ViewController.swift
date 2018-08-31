@@ -32,6 +32,11 @@ class ViewController: UIViewController {
     var isAnagram = false
     var score = 0
     var charMatch = 0
+    var usedLetters:[String:Int] = ["c":0,
+                                    "i":0,
+                                    "d":0,
+                                    "e":0,
+                                    "r":0]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +50,7 @@ class ViewController: UIViewController {
     }
 
     func checkGuess(guess:String) {
+        
         var wordArr:[String] = []
         //convert word to array
         for letter in word {
@@ -54,19 +60,47 @@ class ViewController: UIViewController {
         for char in guess {
             
             if wordArr.contains(String(char)) {
-                charMatch+=1
+                //charMatch+=1
+                updateUsedLetters(letter: String(char))
                 print("Character: \(String(char)), matchCount: \(charMatch)")
-                //isAnagram = true
             } else {
-                charMatch-=1
-                print("Character: \(String(char)), matchCount: \(charMatch)")
+                //charMatch-=1
                 //isAnagram = false
+                print("Character: \(String(char)), matchCount: \(charMatch)")
             }
         }
+        checkUsedLetters() // check for duplicates
         print("Total charMatch: \(charMatch)")
         
         updateScore(anagramCheck: checkMatch(matchCount: charMatch, guess: guess))
         
+    }
+    
+    
+    //checks for duplicates, if match is found
+    func updateUsedLetters(letter:String){
+        
+        for key in usedLetters.keys {
+            if letter == key {
+                if usedLetters[key] != nil {
+                    usedLetters[key]!+=1 //looked up how to access values in key-value pairs
+                } else {
+                    return
+                }
+            } else {
+                return
+            }
+        }
+    }
+    
+    func checkUsedLetters(){
+        for value in usedLetters.values {
+            if value == 1 {
+                charMatch+=1
+            } else {
+                charMatch-=1
+            }
+        }
     }
     
     func checkMatch(matchCount:Int, guess:String) -> Bool {
