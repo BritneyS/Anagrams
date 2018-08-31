@@ -126,10 +126,21 @@ class ViewController: UIViewController {
     }
     
     func isAnagramDisplay(anagramCheck:Bool) {
+        //looked up alert specifics
         if anagramCheck {
-            isAnagramDisplayLabel.text = "Is an Anagram!😃"
+            
+            let alert = UIAlertController(title: "Is an Anagram!", message: "You get 1 point!😃", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
+            
+            self.present(alert, animated: true)
         } else {
-            isAnagramDisplayLabel.text = "NOT an Anagram!😢"
+            
+            let alert = UIAlertController(title: "NOT an Anagram!", message: "You lose 1 point!😢", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
+            
+            self.present(alert, animated: true)
         }
     }
     
