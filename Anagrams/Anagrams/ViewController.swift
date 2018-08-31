@@ -28,7 +28,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var checkAnagramButton: UIButton!
     @IBOutlet weak var scoreLabel: UILabel!
     
-    
+    var word = "cider" // cried, ride, dice
+    var isAnagram = false
+    var score = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +42,42 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func checkGuess(guess:String) {
+        var wordArr:[String] = []
+        //convert word to array
+        for letter in word {
+            wordArr.append(String(letter))
+        }
+        //check anagram char by char
+        for char in guess {
+            if wordArr.contains(String(char)) {
+                isAnagram = true
+                updateScore(anagramCheck: isAnagram)
+            } else {
+                isAnagram = false
+                updateScore(anagramCheck: isAnagram)
+            }
+        }
+        
+    }
+    
+    func updateScore(anagramCheck:Bool) {
+        if isAnagram {
+            score+=1
+            scoreLabel.text = "Score: \(score)"
+        } else {
+            score-=1
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
+    @IBAction func checkAnagram(_ sender: UIButton) {
+        guard let guess = guessTextField.text else {
+            print("No data")
+            return
+        }
+        checkGuess(guess: guess)
+    }
+    
 
 }
 
