@@ -61,19 +61,11 @@ class ViewController: UIViewController {
         for char in guess {
             
             if wordArr.contains(String(char)) {
-                //charMatch+=1
                 updateUsedLetters(letter: String(char))
                 checkUsedLetters(letter: String(char))
-                print("Character: \(String(char)), matchCount: \(charMatch)")
-            } else {
-                //charMatch-=1
-                //isAnagram = false
-                print("Character: \(String(char)), matchCount: \(charMatch)")
             }
         }
-        //checkUsedLetters() // check for duplicates
-        print("Total charMatch: \(charMatch)")
-        
+       
         updateScore(anagramCheck: checkMatch(matchCount: charMatch, guess: guess))
         
     }
@@ -81,13 +73,10 @@ class ViewController: UIViewController {
     
     //checks for duplicates, if match is found
     func updateUsedLetters(letter:String){
-        print("updated usedLetters")
         for key in usedLetters.keys {
-            print("key:\(key), letter:\(letter)")
             if letter == key {
                 if usedLetters[key] != nil {
                     usedLetters[key]!+=1 //looked up how to access values in key-value pairs
-                    print("Used - \(key): \(String(describing: usedLetters[key]))")
                 }
             }
         }
@@ -106,13 +95,11 @@ class ViewController: UIViewController {
     }
     
     func checkMatch(matchCount:Int, guess:String) -> Bool {
-        print("Guess count: \(guess.count)")
         if matchCount == guess.count {
             isAnagram = true
         } else {
             isAnagram = false
         }
-        print("isAnagram: \(isAnagram)")
         return isAnagram
     }
     
@@ -122,7 +109,6 @@ class ViewController: UIViewController {
         for key in usedLetters.keys {
             usedLetters[key] = 0
         }
-        print("New guess:\(usedLetters)")
     }
     
     func isAnagramDisplay(anagramCheck:Bool) {
