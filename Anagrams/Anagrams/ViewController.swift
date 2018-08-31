@@ -31,9 +31,11 @@ class ViewController: UIViewController {
     var word = "cider" // cried, ride, dice
     var isAnagram = false
     var score = 0
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        wordLabel.text = self.word
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -52,12 +54,11 @@ class ViewController: UIViewController {
         for char in guess {
             if wordArr.contains(String(char)) {
                 isAnagram = true
-                updateScore(anagramCheck: isAnagram)
             } else {
                 isAnagram = false
-                updateScore(anagramCheck: isAnagram)
             }
         }
+        updateScore(anagramCheck: isAnagram)
         
     }
     
