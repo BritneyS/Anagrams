@@ -117,6 +117,7 @@ class ViewController: UIViewController {
     }
     
     func newGuess(){
+        guessTextField.text = ""
         charMatch = 0
         for key in usedLetters.keys {
             usedLetters[key] = 0
@@ -144,12 +145,12 @@ class ViewController: UIViewController {
         }
     }
     @IBAction func checkAnagram(_ sender: UIButton) {
-        newGuess()
         guard let guess = guessTextField.text else {
             print("No data")
             return
         }
         checkGuess(guess: guess)
+        newGuess()
     }
     
 
