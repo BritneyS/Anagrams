@@ -149,7 +149,13 @@ class ViewController: UIViewController {
             print("No data")
             return
         }
-        checkGuess(guess: guess)
+        //checks for empty input
+        if guess.isEmpty || guess == "" {
+            isAnagram = false
+            updateScore(anagramCheck: isAnagram)
+        } else {
+            checkGuess(guess: guess)
+        }
         newGuess()
     }
     
