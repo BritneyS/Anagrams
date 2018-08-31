@@ -31,7 +31,7 @@ class ViewController: UIViewController {
     var word = "cider" // cried, ride, dice
     var isAnagram = false
     var score = 0
-    
+    var charMatch = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,14 +52,36 @@ class ViewController: UIViewController {
         }
         //check anagram char by char
         for char in guess {
+            
             if wordArr.contains(String(char)) {
-                isAnagram = true
+                charMatch+=1
+                print("Character: \(String(char)), matchCount: \(charMatch)")
+                //isAnagram = true
             } else {
-                isAnagram = false
+                charMatch-=1
+                print("Character: \(String(char)), matchCount: \(charMatch)")
+                //isAnagram = false
             }
         }
-        updateScore(anagramCheck: isAnagram)
+        print("Total charMatch: \(charMatch)")
         
+        updateScore(anagramCheck: checkMatch(matchCount: charMatch, guess: guess))
+        
+    }
+    
+    func checkMatch(matchCount:Int, guess:String) -> Bool {
+        print("Guess count: \(guess.count)")
+        if matchCount == guess.count {
+            isAnagram = true
+        } else {
+            isAnagram = false
+        }
+        print("isAnagram: \(isAnagram)")
+        return isAnagram
+    }
+    
+    func newGuess(){
+        charMatch = 0
     }
     
     func updateScore(anagramCheck:Bool) {
@@ -72,6 +94,7 @@ class ViewController: UIViewController {
         }
     }
     @IBAction func checkAnagram(_ sender: UIButton) {
+        newGuess()
         guard let guess = guessTextField.text else {
             print("No data")
             return
